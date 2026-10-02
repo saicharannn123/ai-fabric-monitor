@@ -28,5 +28,6 @@ jobs:
       - run: amtool check-config monitoring/alertmanager/alertmanager.yml
       - name: Validate dashboard + topology files
         run: |
+          pip install pyyaml
           python3 -c "import json; d=json.load(open('monitoring/grafana/dashboards/ai-fabric.json')); print(d['title'], len(d['panels']), 'panels')"
           python3 -c "import yaml; t=yaml.safe_load(open('topology/fabric.clab.yml')); print(len(t['topology']['nodes']), 'nodes', len(t['topology']['links']), 'links')"
