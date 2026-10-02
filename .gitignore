@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.venv/
+clab-ai-fabric/
+topology/clab-ai-fabric/
+.ai-fabric.clab.yml.bak

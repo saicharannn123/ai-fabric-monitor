@@ -1,0 +1,11 @@
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E741"]
+per-file-ignores = { "fabric_exporter/backends.py" = ["E501"] }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

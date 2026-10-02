@@ -1,0 +1,25 @@
+groups:
+  - name: fabric-recording
+    interval: 5s
+    rules:
+      - record: fabric:interface_tx_bps
+        expr: rate(fabric_interface_tx_bytes_total[30s]) * 8
+      - record: fabric:interface_rx_bps
+        expr: rate(fabric_interface_rx_bytes_total[30s]) * 8
+      - record: fabric:interface_tx_utilization:ratio
+        expr: fabric:interface_tx_bps / fabric_interface_speed_bps
+      - record: fabric:interface_rx_utilization:ratio
+        expr: fabric:interface_rx_bps / fabric_interface_speed_bps
+      - record: fabric:interface_errors:rate1m
+        expr: rate(fabric_interface_rx_errors_total[1m]) + rate(fabric_interface_tx_errors_total[1m])
+      # How unevenly a leaf spreads traffic over its spine uplinks.
+      # 0 = perfect ECMP balance, 1 = everything on one link (hash polarisation / failed path).
+      - record: fabric:leaf_uplink_imbalance:ratio
+        expr: |
+          (
+            max by (device) (fabric:interface_tx_bps{role="leaf", interface=~"eth1|eth2"})
+            - min by (device) (fabric:interface_tx_bps{role="leaf", interface=~"eth1|eth2"})
+          )
+          / clamp_min(sum by (device) (fabric:interface_tx_bps{role="leaf", interface=~"eth1|eth2"}), 1)
+      - record: fabric:gpu_traffic_bps
+        expr: sum(fabric:interface_rx_bps{role="leaf", interface="eth3"})

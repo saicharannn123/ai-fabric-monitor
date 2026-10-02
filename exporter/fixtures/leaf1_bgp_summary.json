@@ -1,0 +1,59 @@
+{
+  "ipv4Unicast": {
+    "routerId": "10.0.0.11",
+    "as": 65101,
+    "vrfId": 0,
+    "vrfName": "default",
+    "tableVersion": 9,
+    "ribCount": 9,
+    "peerCount": 2,
+    "peers": {
+      "eth1": {
+        "hostname": "spine1",
+        "remoteAs": 65000,
+        "localAs": 65101,
+        "version": 4,
+        "msgRcvd": 412,
+        "msgSent": 409,
+        "tableVersion": 0,
+        "outq": 0,
+        "inq": 0,
+        "peerUptime": "00:20:14",
+        "peerUptimeMsec": 1214000,
+        "peerUptimeEstablishedEpoch": 1759411100,
+        "pfxRcd": 3,
+        "pfxSnt": 5,
+        "state": "Established",
+        "peerState": "OK",
+        "connectionsEstablished": 1,
+        "connectionsDropped": 0,
+        "idType": "interface"
+      },
+      "eth2": {
+        "hostname": "spine2",
+        "remoteAs": 65000,
+        "localAs": 65101,
+        "version": 4,
+        "msgRcvd": 3,
+        "msgSent": 7,
+        "tableVersion": 0,
+        "outq": 0,
+        "inq": 0,
+        "peerUptime": "never",
+        "peerUptimeMsec": 0,
+        "pfxRcd": 0,
+        "pfxSnt": 0,
+        "state": "Active",
+        "peerState": "OK",
+        "connectionsEstablished": 1,
+        "connectionsDropped": 1,
+        "idType": "interface"
+      }
+    },
+    "failedPeers": 1,
+    "displayedPeers": 2,
+    "totalPeers": 2,
+    "dynamicPeers": 0,
+    "bestPath": {"multiPathRelax": "true"}
+  }
+}

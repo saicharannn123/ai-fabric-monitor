@@ -1,0 +1,55 @@
+# Run: promtool test rules monitoring/prometheus/tests/alerts_test.yml
+rule_files:
+  - ../rules/alerts.yml
+  - ../rules/recording.yml
+
+evaluation_interval: 5s
+
+tests:
+  - name: BGP session down fires after 15s
+    interval: 5s
+    input_series:
+      - series: 'fabric_bgp_peer_up{device="leaf1",role="leaf",peer="eth1",remote_device="spine1",remote_as="65000"}'
+        values: "1 1 0 0 0 0 0 0"
+    alert_rule_test:
+      - eval_time: 10s
+        alertname: BGPSessionDown
+        exp_alerts: []
+      - eval_time: 30s
+        alertname: BGPSessionDown
+        exp_alerts:
+          - exp_labels: {severity: critical, device: leaf1, role: leaf, peer: eth1, remote_device: spine1, remote_as: "65000"}
+            exp_annotations:
+              summary: "BGP down: leaf1 -> spine1 (eth1)"
+              description: "Session on leaf1 eth1 is not Established. Check link, optics and BFD."
+
+  - name: ECMP degraded only for GPU subnets
+    interval: 5s
+    input_series:
+      - series: 'fabric_route_ecmp_paths{device="leaf1",role="leaf",prefix="10.1.2.0/24"}'
+        values: "2 2 1 1 1 1 1 1 1 1"
+      - series: 'fabric_route_ecmp_paths{device="leaf1",role="leaf",prefix="10.0.0.1/32"}'
+        values: "1 1 1 1 1 1 1 1 1 1"
+    alert_rule_test:
+      - eval_time: 45s
+        alertname: ECMPDegraded
+        exp_alerts:
+          - exp_labels: {severity: warning, device: leaf1, role: leaf, prefix: 10.1.2.0/24}
+            exp_annotations:
+              summary: "ECMP degraded on leaf1 to 10.1.2.0/24"
+              description: "Only 1 active path(s) to GPU subnet 10.1.2.0/24 (expected 2). All-reduce bandwidth halved."
+
+  - name: Uplink imbalance recording rule
+    interval: 5s
+    input_series:
+      # eth1 carries 3x the traffic of eth2 -> imbalance = (3-1)/(3+1) = 0.5
+      - series: 'fabric_interface_tx_bytes_total{device="leaf1",role="leaf",interface="eth1"}'
+        values: "0+375000000x20"
+      - series: 'fabric_interface_tx_bytes_total{device="leaf1",role="leaf",interface="eth2"}'
+        values: "0+125000000x20"
+    promql_expr_test:
+      - expr: fabric:leaf_uplink_imbalance:ratio
+        eval_time: 60s
+        exp_samples:
+          - labels: 'fabric:leaf_uplink_imbalance:ratio{device="leaf1"}'
+            value: 0.5

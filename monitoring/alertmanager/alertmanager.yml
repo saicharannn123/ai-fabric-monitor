@@ -1,0 +1,24 @@
+# Default: alerts are visible in the Alertmanager UI (http://localhost:9093).
+# To get Slack notifications, fill in the slack receiver and set `receiver: slack`.
+route:
+  receiver: default
+  group_by: [alertname, device]
+  group_wait: 10s
+  group_interval: 1m
+  repeat_interval: 1h
+
+receivers:
+  - name: default
+  # - name: slack
+  #   slack_configs:
+  #     - api_url: https://hooks.slack.com/services/XXX/YYY/ZZZ
+  #       channel: "#fabric-alerts"
+  #       send_resolved: true
+  #       title: '{{ .CommonAnnotations.summary }}'
+  #       text: '{{ .CommonAnnotations.description }}'
+
+inhibit_rules:
+  # A down link explains the BGP/ECMP alerts that follow - don't page three times.
+  - source_matchers: [alertname = FabricLinkDown]
+    target_matchers: [alertname =~ "BGPSessionDown|ECMPDegraded|ECMPLoadImbalance"]
+    equal: [device]

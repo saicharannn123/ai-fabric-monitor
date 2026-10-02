@@ -1,0 +1,14 @@
+{
+  "10.0.0.1/32": [{"prefix": "10.0.0.1/32", "prefixLen": 32, "protocol": "bgp", "vrfId": 0, "selected": true, "destSelected": true, "distance": 20, "metric": 0, "installed": true, "table": 254,
+    "nexthops": [{"flags": 3, "fib": true, "ip": "fe80::a8c1:abff:fe01:1", "afi": "ipv6", "interfaceIndex": 12, "interfaceName": "eth1", "active": true, "weight": 1}]}],
+  "10.0.0.11/32": [{"prefix": "10.0.0.11/32", "prefixLen": 32, "protocol": "connected", "selected": true, "installed": true,
+    "nexthops": [{"flags": 3, "fib": true, "directlyConnected": true, "interfaceIndex": 1, "interfaceName": "lo", "active": true}]}],
+  "10.0.0.12/32": [{"prefix": "10.0.0.12/32", "prefixLen": 32, "protocol": "bgp", "selected": true, "installed": true,
+    "nexthops": [
+      {"flags": 3, "fib": true, "ip": "fe80::a8c1:abff:fe01:1", "afi": "ipv6", "interfaceName": "eth1", "active": true, "weight": 1},
+      {"flags": 0, "ip": "fe80::a8c1:abff:fe02:1", "afi": "ipv6", "interfaceName": "eth2", "weight": 1}
+    ]}],
+  "10.1.2.0/24": [{"prefix": "10.1.2.0/24", "prefixLen": 24, "protocol": "bgp", "selected": true, "installed": true,
+    "nexthops": [{"flags": 3, "fib": true, "ip": "fe80::a8c1:abff:fe01:1", "afi": "ipv6", "interfaceName": "eth1", "active": true, "weight": 1}]}],
+  "10.9.9.0/24": [{"prefix": "10.9.9.0/24", "protocol": "bgp", "selected": false, "nexthops": [{"interfaceName": "eth1", "active": true}]}]
+}

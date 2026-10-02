@@ -1,0 +1,13 @@
+[
+  {"ifindex": 1, "ifname": "lo", "flags": ["LOOPBACK", "UP", "LOWER_UP"], "mtu": 65536, "operstate": "UNKNOWN",
+   "stats64": {"rx": {"bytes": 1200, "packets": 12, "errors": 0, "dropped": 0}, "tx": {"bytes": 1200, "packets": 12, "errors": 0, "dropped": 0}}},
+  {"ifindex": 2, "ifname": "gretap0", "flags": ["BROADCAST", "MULTICAST"], "mtu": 1462, "operstate": "DOWN"},
+  {"ifindex": 10, "ifname": "eth0", "flags": ["BROADCAST", "MULTICAST", "UP", "LOWER_UP"], "mtu": 1500, "operstate": "UP",
+   "stats64": {"rx": {"bytes": 9000, "packets": 90, "errors": 0, "dropped": 0}, "tx": {"bytes": 4000, "packets": 40, "errors": 0, "dropped": 0}}},
+  {"ifindex": 12, "ifname": "eth1", "flags": ["BROADCAST", "MULTICAST", "UP", "LOWER_UP"], "mtu": 9500, "operstate": "UP",
+   "stats64": {"rx": {"bytes": 88231234, "packets": 61234, "errors": 0, "dropped": 0}, "tx": {"bytes": 912345678, "packets": 623456, "errors": 0, "dropped": 2}}},
+  {"ifindex": 14, "ifname": "eth2", "flags": ["BROADCAST", "MULTICAST", "UP"], "mtu": 9500, "operstate": "LOWERLAYERDOWN",
+   "stats64": {"rx": {"bytes": 1000, "packets": 10, "errors": 17, "dropped": 0}, "tx": {"bytes": 2000, "packets": 20, "errors": 0, "dropped": 0}}},
+  {"ifindex": 16, "ifname": "eth3", "flags": ["BROADCAST", "MULTICAST", "UP", "LOWER_UP"], "mtu": 9500, "operstate": "UP",
+   "stats64": {"rx": {"bytes": 912000000, "packets": 620000, "errors": 0, "dropped": 0}, "tx": {"bytes": 88000000, "packets": 61000, "errors": 0, "dropped": 0}}}
+]
