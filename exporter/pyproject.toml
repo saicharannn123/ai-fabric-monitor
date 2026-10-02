@@ -9,3 +9,4 @@ per-file-ignores = { "fabric_exporter/backends.py" = ["E501"] }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+   pythonpath = ["."]
